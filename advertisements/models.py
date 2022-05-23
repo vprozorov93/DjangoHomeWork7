@@ -40,10 +40,7 @@ class Advertisement(models.Model):
 
 class UserFavoriteAdvertisement(models.Model):
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
-    like_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-    )
+    like_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Избранное объявление'
