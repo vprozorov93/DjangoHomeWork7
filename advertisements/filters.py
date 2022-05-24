@@ -7,11 +7,17 @@ from advertisements.models import Advertisement
 
 class AdvertisementDateOrCreatorFilter(FilterSet):
     created_at = DateFromToRangeFilter()
-    creator = CharFilter(method='creator_filter')
+    creator = CharFilter(method='status_creator_filter')
+    status = CharFilter(method='status_creator_filter')
 
-    def creator_filter(self, queryset, name, value):
-        return queryset.filter(Q(creator__id__icontains=value))
+    def status_creator_filter(self, queryset, name, value):
+        if name == 'status':
+            return queryset.filter(Q(status__icontains=value))
+
+        if name == 'creator':
+            return queryset.filter(Q(creator__id__icontains=value))
+
 
     class Meta:
         model = Advertisement
-        fields = ['creator', 'created_at']
+        fields = ['status', 'creator', 'created_at']
